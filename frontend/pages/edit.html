@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="../css/addMovie.css">
+    </head>
+    <body>
+        <div class="amheading">
+            <h1>Edit Movies</h1>
+        </div>
+        <div class="main-block">
+            <form action="#" id="form">
+                <div class="ins-form">
+                    <label for>Name:</label>
+                    <input type="text" name="name" class="name" id="name">
+                </div>
+                <div class="ins-form">
+                    <label for>Rating:</label>
+                    <input type="text" name="rating" class="rating" id="rating">
+                </div>
+                <div class="ins-form">
+                    <label for>Votes:</label>
+                    <input type="text" name="vote" class="vote" id="vote">
+                </div>
+                <div class="ins-form">
+                    <label for>Visual Type:</label>
+                    <input type="text" name="visual" class="visual" id="visual">
+                </div>
+                <div class="ins-form">
+                    <label for>Language:</label>
+                    <input type="text" name="lang" class="lang" id="lang">
+                </div>
+                <div class="ins-form">
+                    <label for>Duration:</label>
+                    <input type="text" name="duration" class="duration" id="duration">
+                </div>
+                <div class="ins-form">
+                    <label for>Category:</label>
+                    <input type="text" name="category" class="category" id="category">
+                </div>
+                <div class="ins-form">
+                    <label for>Release Date:</label>
+                    <input type="text" name="released" class="released" id="released">
+                </div>
+                <div class="ins-form">
+                    <label for>About:</label>
+                    <textarea name="about" class="about" id="about"></textarea>
+                </div>
+                <div class="ins-form">
+                    <label for>Photo - card:</label>
+                    <input type="file" name="cardpic" class="cardpic" id="cardpic" onchange="picture1()">
+                </div>
+                <div class="ins-img">
+                    <img src="" alt="" id="card-div" height="200px">
+                </div>
+                <div class="ins-form">
+                    <label for>Background Photo:</label>
+                    <input type="file" name="bgpic" class="bgpic" id="bgpic" onchange="picture2()" >
+                </div>
+                <div class="ins-img">
+                    <img src="" alt="" id="bg-div" height="200px">
+                </div>
+                <div class="insbtn">
+                    <button class="save-btn" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+
+        <script src="../js/edit.js"></script>
+    </body>
+</html>
