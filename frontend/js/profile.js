@@ -1,23 +1,54 @@
-const url = window.location.href;
-const urlParams = new URLSearchParams(url.split("?")[1]);
-const id=urlParams.get("id");
-console.log(id);
+let id
 
 async function getUserDetails() {
-    const res=await fetch(`http://localhost:3001/api/getUserDetails/${id}`)
-    const data=await res.json();
-    console.log(data);
+    const token = localStorage.getItem("token")
+    const res=await fetch(`http://localhost:3001/api/getUserDetails/`,{
+        headers: { authorization: `Bearer ${token}` },
+      })
+    const user=await res.json();
+    id=user.usr._id
+    console.log(id);
+    console.log(user.usr)
+    console.log(user.post);
+    
+    
+    
+    // console.log(data.user);
     document.getElementById('main-class-1').innerHTML=`
-    <div><img src="${data.profile}" alt="" height="50" width="50"></div>
-            <div>Username: ${data.name}</div>
-            <div>Email: ${data.email}</div>
-            <div>Phone: ${data.phone}</div>
-            <button onclick="logoutacc()">Logout account</button>
-            <button onclick="deletedata()">Delete</button>
+      <h1>Profile</h1><br>
+      <div class="img"><img src="${user.usr.profile}" alt="" height="100" width="100"></div><br>
+            <div class="main-1-div">Username: ${user.usr.name}</div><br>
+            <div class="main-1-div">Email: ${user.usr.email}</div><br>
+            <div class="main-1-div">Phone: ${user.usr.phone}</div><br><br>
+            <div class="btn">
+            <button class="log-btn" onclick="logoutacc()">Logout account</button>
+            <button class="del-btn" onclick="deletedata()">Delete</button>
+            </div>
     `
+    let str=[]
+    user.post.map((data)=>{
+      str+=`
+        <div><img src="${data.pic}" alt="" height="150" width="150"></div>
+      `
+    })
+    document.getElementById('post-page').innerHTML=str
+    let check=user.post
+    if(check.length==0){
+      document.getElementById('post-page').innerHTML=`<h3>No posts yet</h3>`
+      }
+    
+
 
 }
+
 getUserDetails()
+
+async function getUserPosts(){
+
+}
+getUserPosts()
+
+
 
 function deletedata() {
     fetch(`http://localhost:3001/api/deleteUser/${id}`,{
@@ -38,7 +69,7 @@ function deletedata() {
 }
 
 function postpage(){
-    window.location.href=`../pages/addPost.html?id=${id}`
+    window.location.href=`../pages/addPost.html`
 }
 
 function logoutacc() {

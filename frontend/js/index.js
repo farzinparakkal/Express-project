@@ -18,7 +18,7 @@ async function getUser() {
             <div class="dropdown" id="dropdown">
                 <button onclick="myFunction()" class="dropbtn">▼</button>
                 <div id="myDropdown" class="dropdown-content">
-                  <a href="../pages/profile.html?id=${movie.id}">Profile</a>
+                  <a href="../pages/profile.html">Profile</a>
                   <a onclick="logoutacc()">Logout</a>
                 </div>
             </div>

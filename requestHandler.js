@@ -6,40 +6,42 @@ import pkg from 'jsonwebtoken'
 const {sign} =pkg
 
 export async function addPost(req,res) {
-
+    console.log("adding post");
+    
     console.log(req.body);
 
     const{...datas}=req.body
-
     await postSchema.create({...datas}).then(()=>{
         res.status(201).send({msg:"Successfull"})
     }).catch((error)=>{
         res.status(404).send({error:error})
     })  
-    
 }
+
+
 
 export async function getUser(req, res) {
     console.log("=================");
     console.log(req.user)
-
     const usr=await userSchema.findOne({_id:req.user.UserID})
     console.log(usr)
-
     console.log("get User")
     res.status(200).send({user:usr.name,pic:usr.profile,id:usr._id}); 
 }
 
 export async function getUserDetails(req,res) {
-    console.log(req.params);
-    const {id}=req.params;
-    const data=await userSchema.findOne({_id:id})
-    console.log(data);
-
-    res.status(200).send(data)
+    console.log("=================");
+    console.log(req.user)
+    const usr=await userSchema.findOne({_id:req.user.UserID})
+    console.log(usr)
+    const post=await postSchema.find({id:req.user.UserID})
+    console.log(post);
     
-    
+    console.log("get User")
+    res.status(200).send({usr,post}); 
 }
+
+
 
 export async function update(req,res) {
     console.log(req.params);
@@ -49,12 +51,10 @@ export async function update(req,res) {
         res.status(201).send({msg:"updated"})
     }).catch((error)=>{
         res.status(500).send({error:error})
-        
-    })
-    
-    
-    
+    })  
 }
+
+
 
 export async function deleteUser(req, res) {
     console.log(req.params); 
@@ -67,6 +67,8 @@ export async function deleteUser(req, res) {
             res.status(500).send({ error });
         });
 }
+
+
 
 export async function adduser(req,res) {
     console.log(req.body);
@@ -83,13 +85,13 @@ export async function adduser(req,res) {
             res.status(201).send({msg:"Successfull"})
         }).catch((error)=>{
             res.status(404).send({error:error})
-        }) 
-        
+        })  
     }).catch((error)=>{
         console.log(error)
-        
     }) 
 }
+
+
 
 export async function login(req,res) {
     console.log(req.body)
@@ -102,16 +104,19 @@ export async function login(req,res) {
 
     if(!user)
         return res.status(500).send({msg:"not exist"})
+
     const success=await bcrypt.compare(pass,user.pass)
     console.log(success)
 
     if(success!=true)
         return res.status(500).send({msg:"not exist"})
+
     const token=await sign({UserID:user._id},process.env.jwt_key,{expiresIn:"24h"})
     console.log(token);
-    
     res.status(200).send({token})
 }
+
+
 
 export async function home(req,res) {
     console.log("end point")

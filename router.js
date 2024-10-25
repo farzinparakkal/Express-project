@@ -7,7 +7,7 @@ const router=Router();
 
 router.route('/addpost').post(rh.addPost)
 router.route('/getUser').get(Auth,rh.getUser)
-router.route('/getUserDetails/:id').get(rh.getUserDetails)
+router.route('/getUserDetails/').get(Auth,rh.getUserDetails)
 router.route('/update/:id').put(rh.update)
 router.route('/deleteUser/:id').delete(rh.deleteUser)
 router.route('/adduser').post(rh.adduser)
