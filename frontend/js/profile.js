@@ -28,7 +28,7 @@ async function getUserDetails() {
     let str=[]
     user.post.map((data)=>{
       str+=`
-        <div><img src="${data.pic}" alt="" height="150" width="150"></div>
+        <a href="../pages/postPage.html?id=${data._id}"><div><img src="${data.pic[0]}" alt="" height="150" width="150"></div></a>
       `
     })
     document.getElementById('post-page').innerHTML=str
@@ -36,18 +36,25 @@ async function getUserDetails() {
     if(check.length==0){
       document.getElementById('post-page').innerHTML=`<h3>No posts yet</h3>`
       }
-    
-
 
 }
-
 getUserDetails()
 
-async function getUserPosts(){
-
+function postpage(id){
+  console.log(id);
+  
+  window.location.href=`../pages/postPage.html?id=${id}`
 }
-getUserPosts()
 
+function addpost(){
+  window.location.href=`../pages/addPost.html`
+}
+
+function logoutacc() {
+  localStorage.removeItem("token")
+  alert("Logout Successfully")
+  window.location.href="../index.html"
+}
 
 
 function deletedata() {
@@ -67,13 +74,3 @@ function deletedata() {
         }
     });
 }
-
-function postpage(){
-    window.location.href=`../pages/addPost.html`
-}
-
-function logoutacc() {
-    localStorage.removeItem("token")
-    alert("Logout Successfully")
-    window.location.href="../index.html"
-  }

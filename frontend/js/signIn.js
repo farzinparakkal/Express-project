@@ -18,11 +18,10 @@ document.getElementById('form').addEventListener('submit',async function (e) {
     console.log(data)
     
     if(res.status==200){
-        
         localStorage.setItem('token', data.token)
         window.location.href="../index.html"
     }
     else{
-        alert(data.error)
+        alert(data.msg)
     }
  })

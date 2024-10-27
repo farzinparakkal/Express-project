@@ -10,19 +10,29 @@
         <div class="container">
             <h2>Add your Posts</h2>
             <form action id="form" class="form">
-                <div><input type="file" name="post-picture" class="post-picture"
-                        id="post-picture" onchange="picture()" multiple></div>
-                <br>
                 <div>
-                    <img src alt id="picture1" height="150" width="150">
-                </div> <br>
-                <!-- <div id="image-preview" style="display: flex; gap: 10px; flex-wrap: wrap;"></div> <br> -->
-                <div><input type="text" name="caption" class="caption" placeholder="caption"
-                        id="caption"></div> <br>
-                <div><textarea name="description" id="description" placeholder="Description"
-                        class="description"></textarea></div> <br><br>
-                <div><button type="submit">Add</button></div>
-            </form>
+                    <input type="file" name="post-picture" class="post-picture"
+                        id="post-picture" onchange="picture()" multiple>
+                </div>
+                <br>
+            
+                <div id="image-preview" style="display: flex; gap: 10px; flex-wrap: wrap;"></div> 
+                <br>
+            
+                <div>
+                    <input type="text" name="caption" class="caption" placeholder="caption" id="caption">
+                </div> 
+                <br>
+            
+                <div>
+                    <textarea name="description" id="description" placeholder="Description" class="description"></textarea>
+                </div> 
+                <br><br>
+            
+                <div>
+                    <button type="submit">Add</button>
+                </div>
+            </form>            
         </div>
 
         <script src="../js/addPost.js"></script>

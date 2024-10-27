@@ -1,5 +1,5 @@
 async function getUser() {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token")
   if (token) {
     const res = await fetch("http://localhost:3001/api/getUser", {
       headers: { authorization: `Bearer ${token}` },
@@ -9,7 +9,7 @@ async function getUser() {
     console.log(movie.user);
     console.log(movie.pic);
 
-    document.getElementById("nav-sign").style.display = "none";
+    document.getElementById("nav-sign").style.display = "none"
     document.getElementById("nav-sec-2").innerHTML = `
         <div class="nav-dropdown" id="uname">${movie.user}</div>
             <div id="profilep" class="profilep">
@@ -24,24 +24,21 @@ async function getUser() {
             </div>
     `;
   }
-  else{
-    alert("You are not logined")
-  }
 }
 getUser();
 
 function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
+  document.getElementById("myDropdown").classList.toggle("show")
 }
 
 window.onclick = function (event) {
   if (!event.target.matches(".dropbtn")) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var dropdowns = document.getElementsByClassName("dropdown-content")
     var i;
     for (i = 0; i < dropdowns.length; i++) {
       var openDropdown = dropdowns[i];
       if (openDropdown.classList.contains("show")) {
-        openDropdown.classList.remove("show");
+        openDropdown.classList.remove("show")
       }
     }
   }
@@ -50,5 +47,5 @@ window.onclick = function (event) {
 function logoutacc() {
   localStorage.removeItem("token")
   alert("Logout Successfully")
-  getUser()
+  window.location.reload()
 }
