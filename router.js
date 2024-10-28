@@ -11,6 +11,7 @@ router.route('/getUser').get(Auth,rh.getUser)
 router.route('/getUserDetails/').get(Auth,rh.getUserDetails)
 router.route('/addpost').post(Auth,rh.addPost)
 router.route('/showPost/:id').get(rh.showPost)
+router.route('/update/:id').put(Auth,rh.update)
 router.route('/deleteUser/:id').delete(rh.deleteUser)
 
 

@@ -30,3 +30,7 @@ showPost()
 function showPreview(imageSrc) {
     document.getElementById("img-preview").src=imageSrc
 }
+
+function editPost() {
+    window.location.href=`../pages/editPost.html?id=${id}`
+}

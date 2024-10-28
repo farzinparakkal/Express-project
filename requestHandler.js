@@ -51,7 +51,11 @@ export async function login(req,res) {
 
 export async function getUser(req, res) {
     const usr=await userSchema.findOne({_id:req.user.UserID})
-    res.status(200).send({user:usr.name,pic:usr.profile,id:usr._id}); 
+    // console.log(usr);
+    const data=await postSchema.find()
+    console.log(data);
+    
+    res.status(200).send({usr,data}); 
 }
 
 export async function getUserDetails(req,res) {
@@ -79,6 +83,19 @@ export async function showPost(req,res) {
     const post=await postSchema.findOne({_id:id})
     // console.log(post);
     res.status(200).send({post})
+}
+
+
+
+export async function update(req,res) {
+    // console.log(req.user.UserID);
+    // console.log(req.body);
+    const {...data}=req.body
+    await postSchema.updateOne({_id:req.params.id},{$set:{id:req.user.UserID,...data}}).then(()=>{
+        res.status(201).send({msg:"updated"})
+    }).catch((error)=>{
+        res.status(500).send({error:error})  
+    })  
 }
 
 

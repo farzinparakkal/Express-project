@@ -10,7 +10,7 @@
     text-decoration:2px underline;
 }
 .main-class-1{
-    width: 400px;
+    width: 300px;
     margin: auto;
     /* background-color: bisque; */
 }
@@ -21,7 +21,7 @@
     border-radius: 50%;
 }
 .main-1-div{
-    padding-left: 130px;
+    padding-left: 80px;
 }
 .btn{
     display: flex;

@@ -5,15 +5,15 @@ async function getUser() {
       headers: { authorization: `Bearer ${token}` },
     });
     const movie = await res.json();
-    console.log(movie);
-    console.log(movie.user);
-    console.log(movie.pic);
+    // console.log(movie);
+    // console.log(movie.usr.name);
+    // console.log(movie.usr.profile);
 
     document.getElementById("nav-sign").style.display = "none"
     document.getElementById("nav-sec-2").innerHTML = `
-        <div class="nav-dropdown" id="uname">${movie.user}</div>
+        <div class="nav-dropdown" id="uname">${movie.usr.name}</div>
             <div id="profilep" class="profilep">
-                <img src="${movie.pic}" alt="" id="profile-pic" class="profile-pic" width="40" height="40">
+                <img src="${movie.usr.profile}" alt="" id="profile-pic" class="profile-pic" width="40" height="40">
             </div>
             <div class="dropdown" id="dropdown">
                 <button onclick="myFunction()" class="dropbtn">▼</button>
@@ -23,6 +23,21 @@ async function getUser() {
                 </div>
             </div>
     `;
+    let str=[]
+    console.log(movie.data);
+    movie.data.map((data)=>{
+      str += `
+        <a href="./pages/postPage.html?id=${data._id}">
+                <div class="card">
+                    <div><img
+                            src="${data.pic[0]}"
+                            alt height="250" width="200"></div>
+                    <div>${data.caption} </div>
+                </div>
+            </a>
+      `
+    })
+    document.getElementById('container').innerHTML=str
   }
 }
 getUser();
