@@ -113,5 +113,17 @@ export async function deleteUser(req, res) {
         });
 }
 
+export async function deletePost(req, res) {
+    // console.log(req.params); 
+    const { id } = req.params;  
+    const data = await postSchema.deleteOne({ _id: id })
+        .then(() => {
+            res.status(201).send({ msg: "Deleted" });
+        })
+        .catch((error) => {
+            res.status(500).send({ error });
+        });
+}
+
 
 

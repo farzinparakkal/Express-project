@@ -7,9 +7,9 @@ async function getUserDetails() {
       })
     const user=await res.json();
     id=user.usr._id
-    console.log(id);
-    console.log(user.usr)
-    console.log(user.post);
+    // console.log(id);
+    // console.log(user.usr)
+    // console.log(user.post);
     
     
     

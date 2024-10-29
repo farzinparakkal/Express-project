@@ -27,7 +27,7 @@ async function getUser() {
     console.log(movie.data);
     movie.data.map((data)=>{
       str += `
-        <a href="./pages/postPage.html?id=${data._id}">
+        <a href="./pages/globalPost.html?id=${data._id}">
                 <div class="card">
                     <div><img
                             src="${data.pic[0]}"
