@@ -1,3 +1,4 @@
+
 .main-class{
     display: flex;
     width: 90vw;
@@ -12,7 +13,9 @@
 .main-class-1{
     width: 300px;
     margin: auto;
-    /* background-color: bisque; */
+    background-color:aliceblue;
+    padding: 20px;
+    border-radius: 10px;
 }
 .main-class-1 .img{
     text-align: center;

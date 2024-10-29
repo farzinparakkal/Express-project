@@ -53,8 +53,7 @@ export async function getUser(req, res) {
     const usr=await userSchema.findOne({_id:req.user.UserID})
     // console.log(usr);
     const data=await postSchema.find()
-    console.log(data);
-    
+    // console.log(data);
     res.status(200).send({usr,data}); 
 }
 

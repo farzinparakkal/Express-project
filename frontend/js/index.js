@@ -24,7 +24,7 @@ async function getUser() {
             </div>
     `;
     let str=[]
-    console.log(movie.data);
+    // console.log(movie.data)
     movie.data.map((data)=>{
       str += `
         <a href="./pages/globalPost.html?id=${data._id}">

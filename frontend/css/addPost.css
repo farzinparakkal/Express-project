@@ -5,10 +5,13 @@
 .container{
     width: 800px;
     border-radius: 10px;
-    background-color: lightcyan;
+    /* background-color: lightcyan; */
+    background-color: #e4e2e1;
+
     margin: auto;
     margin-top: 50px;
-    padding: 30px;
+    padding: 30px 0px;
+    border-radius: 10px;
 }
 .container h2{
     text-align: center;
