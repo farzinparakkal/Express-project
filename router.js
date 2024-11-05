@@ -14,6 +14,8 @@ router.route('/showPost/:id').get(rh.showPost)
 router.route('/update/:id').put(Auth,rh.update)
 router.route('/deleteUser/:id').delete(rh.deleteUser)
 router.route('/deletePost/:id').delete(rh.deletePost)
+router.route('/otp').post(rh.generateOtp)
+router.route('/checkOtp').post(rh.checkOtp)
 
 
 export default router;

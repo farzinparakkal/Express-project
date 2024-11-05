@@ -1,10 +1,21 @@
 import postSchema from './models/post.model.js'
 import userSchema from './models/user.model.js'
 import bcrypt from 'bcrypt'
-
+import nodemailer from 'nodemailer'
 import pkg from 'jsonwebtoken'
 const {sign} =pkg
+let otp
 
+
+const transporter = nodemailer.createTransport({
+    host: "sandbox.smtp.mailtrap.io",
+    port: 2525,
+    secure: false, // true for port 465, false for other ports
+    auth: {
+      user: "be62be778e6abf",
+      pass: "54c947f7805c93",
+    },
+  })
 
 
 export async function adduser(req,res) {
@@ -122,6 +133,46 @@ export async function deletePost(req, res) {
         .catch((error) => {
             res.status(500).send({ error });
         });
+}
+
+
+
+
+export async function generateOtp(req,res) {
+    const {email}=req.body
+
+    const check = await userSchema.findOne({email})
+    if(check){
+    otp=Math.floor(Math.random()*10000)
+    console.log(otp);
+    const info = await transporter.sendMail({
+        from: '"Maddison Foo Koch 👻" <maddison53@ethereal.email>',
+        to: email,
+        subject: "OTP ",
+        text: "Verify",
+        html: `<b>otp is ${otp}</b>`,
+        
+      })
+      console.log("Message sent: %s", info.messageId)
+      res.status(200).send({msg:"OTP sent"})
+    }
+    else{
+        res.status(404).send({msg:"This Email has not created user"})
+    }  
+}
+
+
+export async function checkOtp(req,res) {
+    const {getotp}=req.body
+    console.log(getotp);
+    if(otp == getotp){
+        res.status(200).send({msg:"OTP is correct"})
+    }
+    else{
+        res.status(404).send({msg:"OTP is incorrect"})
+    }
+    
+    
 }
 
 
