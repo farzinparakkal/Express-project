@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
     email:{type: String},
     phone:{type: Number},
     pass:{type: String},
+    otp:{type : Number},
 });
 
 

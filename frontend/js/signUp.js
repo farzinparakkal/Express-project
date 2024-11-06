@@ -24,7 +24,7 @@ document.getElementById('form').addEventListener('submit',async function (e) {
         window.location.href="./signIn.html"
     }
     else{
-        alert(data.error)
+        alert(data.msg)
     }
  })
 

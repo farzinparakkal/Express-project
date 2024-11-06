@@ -4,16 +4,18 @@ import bcrypt from 'bcrypt'
 import nodemailer from 'nodemailer'
 import pkg from 'jsonwebtoken'
 const {sign} =pkg
-let otp
 
 
 const transporter = nodemailer.createTransport({
-    host: "sandbox.smtp.mailtrap.io",
-    port: 2525,
-    secure: false, // true for port 465, false for other ports
+    service:"gmail",
+    // host: "sandbox.smtp.mailtrap.io",
+    // port: 2525,
+    // secure: false, // true for port 465, false for other ports
     auth: {
-      user: "be62be778e6abf",
-      pass: "54c947f7805c93",
+    //   user: "be62be778e6abf",
+    //   pass: "54c947f7805c93",
+    user: "farzinparakkal135@gmail.com",
+    pass: "bpmi whpr zwkz wfdq",
     },
   })
 
@@ -25,9 +27,14 @@ export async function adduser(req,res) {
     else if(pass!=cpass)
         return res.status(500).send({msg:"password missmatch"})
 
+    const check=await userSchema.find({email})
+    if(check)
+        return res.status(500).send({msg:"email already exist"})
+
+
     bcrypt.hash(pass,10).then((hpwd)=>{
         // console.log(hpwd)
-        console.log("data added");
+        // console.log("data added");
         userSchema.create({profile,name,email,phone,pass:hpwd}).then(()=>{
             res.status(201).send({msg:"Successfull"})
         }).catch((error)=>{
@@ -143,14 +150,19 @@ export async function generateOtp(req,res) {
 
     const check = await userSchema.findOne({email})
     if(check){
-    otp=Math.floor(Math.random()*10000)
+    let otp=Math.floor(Math.random()*10000)
     console.log(otp);
+    userSchema.updateOne({email:email},{$set:{otp:otp}}).then(()=>{
+        // console.log("otp added");
+    })
+    
+    
     const info = await transporter.sendMail({
-        from: '"Maddison Foo Koch 👻" <maddison53@ethereal.email>',
+        from: 'farzinparakkal135@gmail.com',
         to: email,
         subject: "OTP ",
         text: "Verify",
-        html: `<b>otp is ${otp}</b>`,
+        html: `<b>Hacked! otp is ${otp}</b>`,
         
       })
       console.log("Message sent: %s", info.messageId)
@@ -163,17 +175,40 @@ export async function generateOtp(req,res) {
 
 
 export async function checkOtp(req,res) {
-    const {getotp}=req.body
-    console.log(getotp);
-    if(otp == getotp){
-        res.status(200).send({msg:"OTP is correct"})
+    const {otp,email}=req.body
+    // console.log(otp,email);
+    const check = await userSchema.findOne({email})
+    if(check){
+        if(check.otp==otp){
+            res.status(200).send({msg:"OTP is correct"})
+        }
+        else{
+            res.status(404).send({msg:"OTP is incorrect"})
+        }
     }
     else{
-        res.status(404).send({msg:"OTP is incorrect"})
+        res.status(404).send({msg:"This Email has not created user"})
     }
-    
-    
 }
 
 
+
+export async function updatePassword(req,res){
+    const {pass,cpass,email}=req.body
+    // console.log(req.body);
+    if(pass!=cpass)
+        return res.status(500).send({msg:"password missmatch"})
+    
+    bcrypt.hash(pass,10).then((hpwd)=>{
+        // console.log(hpwd)
+        userSchema.updateOne({ email }, { $set: { pass: hpwd, otp: 0 } }).then(()=>{
+            // console.log("password changed"); 
+            res.status(201).send({msg:"Password changed successfully"})
+        }).catch((error)=>{
+            res.status(404).send({error:error})
+        })  
+    }).catch((error)=>{
+        console.log(error)
+    }) 
+}
 
